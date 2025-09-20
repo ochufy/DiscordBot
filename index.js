@@ -9,7 +9,6 @@ const client = new Client({
   ],
 });
 
-// Bot Token (replace with your bot's token)
 const token = process.env.DISCORD_BOT_TOKEN;
 
 // Instagram reel URL regex
