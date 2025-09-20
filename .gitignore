@@ -1,0 +1,26 @@
+# compiled output
+/dist
+/tmp
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+.settings/
+
+# IDE - VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Angular cache
+.angular/cache
+
+# environment files
+/src/environments/environment.*.ts
+.env
+
+# Optional: if you use local builds
+/.angular
