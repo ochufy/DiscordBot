@@ -1,5 +1,10 @@
 require('dotenv/config');
+const express = require('express');
 const { Client, IntentsBitField } = require("discord.js");
+// Create an Express app
+const app = express();
+const port = process.env.PORT || 4000; 
+
 const client = new Client({
   intents: [
     IntentsBitField.Flags.Guilds,
@@ -40,7 +45,12 @@ client.on("messageCreate", (message) => {
 // Log in to Discord with your app's token
 client.login(token);
 
-// Export a simple HTTP handler for serverless function
-module.exports = (req, res) => {
-  res.status(200).send("Discord bot is running!");
-};
+// Add a route for your server to handle HTTP requests
+app.get('/', (req, res) => {
+  res.status(200).send('Discord bot is running!');
+});
+
+// Start the Express server and listen on a port
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});
