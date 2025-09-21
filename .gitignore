@@ -24,3 +24,4 @@
 
 # Optional: if you use local builds
 /.angular
+.vercel

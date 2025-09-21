@@ -39,3 +39,8 @@ client.on("messageCreate", (message) => {
 
 // Log in to Discord with your app's token
 client.login(token);
+
+// Export a simple HTTP handler for serverless function
+module.exports = (req, res) => {
+  res.status(200).send("Discord bot is running!");
+};
