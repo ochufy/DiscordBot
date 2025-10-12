@@ -35,7 +35,7 @@ client.on("messageCreate", (message) => {
     const reelId = match[2];
 
     // Create the modified link
-    const modifiedLink = `https://www.vxinstagram.com/reel/${reelId}`;
+    const modifiedLink = `https://www.d.vxinstagram.com/reel/${reelId}`;
 
     // Send the modified link as a message
     message.channel.send(modifiedLink);
