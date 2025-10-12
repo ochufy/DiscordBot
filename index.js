@@ -1,9 +1,9 @@
-require('dotenv/config');
-const express = require('express');
+require("dotenv/config");
+const express = require("express");
 const { Client, IntentsBitField } = require("discord.js");
 // Create an Express app
 const app = express();
-const port = process.env.PORT || 4000; 
+const port = process.env.PORT || 4000;
 
 const client = new Client({
   intents: [
@@ -24,6 +24,23 @@ client.once("clientReady", () => {
   console.log("Bot is online!");
 });
 
+const TARGET_USER_ID = "1359439275535372434";
+
+// Variable to track the "goodnight" count and the time window
+let goodnightCount = 0;
+let lastCountResetTime = Date.now();
+
+const resetGoodnightCount = () => {
+  goodnightCount = 0;
+  lastCountResetTime = Date.now();
+};
+
+const checkAndResetCount = () => {
+  // Check if 24 hours have passed
+  if (Date.now() - lastCountResetTime >= 24 * 60 * 60 * 1000) {
+    resetGoodnightCount();
+  }
+};
 client.on("messageCreate", (message) => {
   // Ignore messages from the bot itself
   if (message.author.bot) return;
@@ -40,14 +57,31 @@ client.on("messageCreate", (message) => {
     // Send the modified link as a message
     message.channel.send(modifiedLink);
   }
+
+  // Check if the message is from the target user
+  if (message.author.id === process.env.TARGET_USER_ID) {
+    // Check for "goodnight" or "good night"
+    if (/(good\s?night|gn)/i.test(message.content)) {
+      // Increment the goodnight count
+      goodnightCount++;
+
+      // Send the current count of "goodnight" messages
+      message.channel.send(
+        `That's ${message.author.displayName}'s goodnight no. ${goodnightCount}.`
+      );
+
+      // Check and reset count if 24 hours have passed
+      checkAndResetCount();
+    }
+  }
 });
 
 // Log in to Discord with your app's token
 client.login(token);
 
 // Add a route for your server to handle HTTP requests
-app.get('/', (req, res) => {
-  res.status(200).send('Discord bot is running!');
+app.get("/", (req, res) => {
+  res.status(200).send("Discord bot is running!");
 });
 
 // Start the Express server and listen on a port
