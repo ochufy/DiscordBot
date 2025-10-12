@@ -24,8 +24,6 @@ client.once("clientReady", () => {
   console.log("Bot is online!");
 });
 
-const TARGET_USER_ID = "1359439275535372434";
-
 // Variable to track the "goodnight" count and the time window
 let goodnightCount = 0;
 let lastCountResetTime = Date.now();
