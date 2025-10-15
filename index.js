@@ -83,7 +83,7 @@ client.on("messageCreate", (message) => {
       );
 
       // Check and reset count if 24 hours have passed
-      checkAndResetCount();
+      checkAndResetAt8PM();
     }
   }
 });
