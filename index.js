@@ -33,12 +33,26 @@ const resetGoodnightCount = () => {
   lastCountResetTime = Date.now();
 };
 
-const checkAndResetCount = () => {
-  // Check if 24 hours have passed
-  if (Date.now() - lastCountResetTime >= 24 * 60 * 60 * 1000) {
+// Check if it's time to reset the count (8:00 PM daily)
+const checkAndResetAt8PM = () => {
+  // Get current time
+  const currentTime = new Date();
+
+  // Set target time to 8:00 PM today
+  const targetTime = new Date();
+  targetTime.setHours(20, 0, 0, 0); // 8:00 PM
+
+  // If current time is past 8:00 PM, reset the count
+  if (currentTime >= targetTime) {
     resetGoodnightCount();
   }
 };
+
+// Set an interval to check every minute if it's 8:00 PM to reset the count
+setInterval(() => {
+  checkAndResetAt8PM();
+}, 60 * 1000); // Check every minute
+
 client.on("messageCreate", (message) => {
   // Ignore messages from the bot itself
   if (message.author.bot) return;
