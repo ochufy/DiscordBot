@@ -70,6 +70,23 @@ client.on("messageCreate", (message) => {
     message.channel.send(modifiedLink);
   }
 
+  if (message.content.includes(process.env.MESSAGE_SUBSTRING)) {
+    const targetChannel = message.guild.channels.cache.get(
+      process.env.TARGET_CHANNEL_FOR_LOGGING
+    );
+
+    if (targetChannel) {
+      // Generate the link to the original message
+      const messageLink = `https://discord.com/channels/${message.guild.id}/${message.channel.id}/${message.id}`;
+
+      // Send the message with the link to the target channel
+      const messageToSend = `Message from **${message.author.displayName}** in **#${message.channel.name}**: \n${message.content}\n${messageLink}`;
+      targetChannel.send(messageToSend); // Send the modified message to the target channel
+    } else {
+      console.log("Target channel not found.");
+    }
+  }
+
   // Check if the message is from the target user
   if (message.author.id === process.env.TARGET_USER_ID) {
     // Check for "goodnight" or "good night"
