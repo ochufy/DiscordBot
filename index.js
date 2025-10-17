@@ -90,7 +90,7 @@ client.on("messageCreate", (message) => {
   // Check if the message is from the target user
   if (message.author.id === process.env.TARGET_USER_ID) {
     // Check for "goodnight" or "good night"
-    if (/(good\s?night|gn)/i.test(message.content)) {
+    if (/(good\s?night)/i.test(message.content)) {
       // Increment the goodnight count
       goodnightCount++;
 
